@@ -80,67 +80,61 @@
     <h4>Exercise #2:</h4>
     <p>Instant Math!</p>
     <p>Can you get these simple calculators to work using only a view model (ng-model)?</p>
-    <div>
-      <input type="number"> + <input type="number"> = {{ "?" }}
+        <div ng-model="calc">
+      <input type="number" ng-model="calc.left"> + <input type="number"  ng-model="calc.right"> = {{ calc.left + calc.right }}
     </div>
 
-    <div>
-      <input type="number"> * <input type="number"> = {{ "?" }}
+    <div ng-model="calc2">
+      <input type="number" ng-model="calc2.left"> * <input type="number" ng-model="calc2.right"> = {{ calc2.left * calc2.right }}
     </div>
   </section>
 
   <section class="exercises">
-    <h4>Exercise #3:</h4>
-    <p>Interest Calculator</p>
-    <p>Can you plug a loanController into this view to make it display the form correctly?</p>
+  <h4>Exercise #3:</h4>
+  <p>Interest Calculator</p>
+  <p>Can you plug a loanController into this view to make it display the form correctly?</p>
 
-    <p>
-      Your loan controller should take the amount of interest that would accrue if you didn't make a payment for n months.
-      Note that the interest rate is an annual interest rate. It should also include the total amount due at the end of
-      n months.
-    </p>
+  <div data-ng-controller="loanController as loan"> <!-- HINT: add "loanController as loan" here -->
+        <!-- DON'T MODIFY ANYTHING ELSE -->
+    <div class="form-group">
+      <label>Loan Amount:</label>
+      <input type="number" ng-model="loan.amount">
+    </div>
 
-    <div> <!-- HINT: add "loanController as loan" here -->
-          <!-- DON'T MODIFY ANYTHING ELSE -->
-      <div class="form-group">
-        <label>Loan Amount:</label>
-        <input type="number" ng-model="loan.amount">
-      </div>
+    <div class="form-group">
+      <label>Interest Rate:</label>
+      <input type="number" step="any" ng-model="loan.apr">
+    </div>
 
-      <div class="form-group">
-        <label>Interest Rate:</label>
-        <input type="number" step="any" ng-model="loan.apr">
-      </div>
-
-      <table>
-        <caption>${{loan.amount}} Loan, {{loan.apr}}% APR</caption>
-        <thead>
-          <tr>
-            <th></th>
-            <th>Accrued Interest</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>Month 1</th>
-            <td>${{loan.month(1).accrued_interest}}</td>
-            <td>${{loan.month(1).total_balance}}</td>
-          </tr>
-          <tr>
-            <th>Month 2</th>
-            <td>${{loan.month(2).accrued_interest}}</td>
-            <td>${{loan.month(2).total_balance}}</td>
-          </tr>
-          <tr>
-            <th>Month 12</th>
-            <td>${{loan.month(12).accrued_interest}}</td>
-            <td>${{loan.month(12).total_balance}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> <!-- End loanController -->
-  </section>
+    <table>
+      <caption>${{loan.amount}} Loan, {{loan.apr}}% APR</caption>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Accrued Interest</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Month 1</th>
+          <td>{{loan.month(1).accrued_interest | currency}}</td>
+          <td>{{loan.month(1).total_balance | currency}}</td>
+        </tr>
+        <tr>
+          <th>Month 2</th>
+          <td>{{loan.month(2).accrued_interest | currency}}</td>
+          <td>{{loan.month(2).total_balance | currency}}</td>
+        </tr>
+        <tr>
+          <th>Month 12</th>
+          <td>{{loan.month(12).accrued_interest | currency}}</td>
+          <td>{{loan.month(12).total_balance | currency}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> <!-- End loanController -->
+</section>
 
 </body>
 </html>
